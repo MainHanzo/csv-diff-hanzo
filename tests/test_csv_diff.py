@@ -36,6 +36,7 @@ EIGHT = """id,name,age,length
 4,Bob,7,422"""
 
 
+
 def test_row_changed():
     diff = compare(
         load_csv(io.StringIO(ONE), key="id"), load_csv(io.StringIO(TWO), key="id")

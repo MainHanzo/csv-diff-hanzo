@@ -5,17 +5,29 @@ import hashlib
 
 
 def load_csv(fp, key=None):
+    """
+    :param fp: file to read
+    :param key: Column to use as a unique ID for each row
+    :return: if key precised, {keyfn(r): r for r in rows} will return {'1': {'id': '1', 'name': 'Cleo', 'age': '4'}, '2': {'id': '2', 'name': 'Pancakes', 'age': '2'}}
+    else {hash_of_line1: {'id': '1', 'name': 'Cleo', 'age': '4'}, hash_of_line2: {'id': '2', 'name': 'Pancakes', 'age': '2'}}
+    """
     fp = csv.reader(fp)
     headings = next(fp)
     rows = [dict(zip(headings, line)) for line in fp]
     if key:
         keyfn = lambda r: r[key]
     else:
-        keyfn = lambda r: hashlib.sha1(json.dumps(r, sort_keys=True).encode("utf8"))
+        keyfn = lambda r: hashlib.sha1(json.dumps(r, sort_keys=True).encode("utf8")).hexdigest()
     return {keyfn(r): r for r in rows}
 
 
 def compare(previous, current):
+    """
+
+    :param previous: first csv file
+    :param current: second csv file
+    :return: the result of the comparasion structured as dict
+    """
     result = {
         "added": [],
         "removed": [],
@@ -38,6 +50,8 @@ def compare(previous, current):
     # Have any rows been removed or added?
     removed = [id for id in previous if id not in current]
     added = [id for id in current if id not in previous]
+
+
     # How about changed?
     removed_or_added = set(removed) | set(added)
     potential_changes = [id for id in current if id not in removed_or_added]
@@ -63,6 +77,14 @@ def compare(previous, current):
 
 
 def human_text(result, key=None, singular=None, plural=None):
+    """
+
+    :param result:  result returned by compare function
+    :param key: Column to use as a unique ID for each row
+    :param singular:
+    :param plural:
+    :return:
+    """
     singular = singular or "row"
     plural = plural or "rows"
     title = []
