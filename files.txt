@@ -1,0 +1,2 @@
+/usr/local/anaconda3/lib/python3.7/site-packages/csv_diff-0.5.4-py3.7.egg
+/usr/local/anaconda3/bin/csv-diff
