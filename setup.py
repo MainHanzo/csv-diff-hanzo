@@ -14,11 +14,11 @@ def get_long_description():
 
 
 setup(
-    name="csv-diff",
+    name="csv-diff-yhua",
     description="Python CLI tool and library for diffing CSV files",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    author="Simon Willison",
+    author="yhua",
     version=VERSION,
     license="Apache License, Version 2.0",
     packages=find_packages(),
@@ -30,7 +30,7 @@ setup(
         csv-diff=csv_diff.cli:cli
     """,
     tests_require=["csv-diff[test]"],
-    url="https://github.com//csv-diff",
+    url="https://github.com/MainHanzo/csv-diff-hanzo.git",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
